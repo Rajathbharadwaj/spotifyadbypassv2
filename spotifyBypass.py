@@ -4,9 +4,9 @@ import win32gui
 import subprocess
 import time
 import re
-import sys
+import os
 
-PATH = str(sys.argv[0])
+PATH = "C:\\Users\\{}\\AppData\\Roaming\\Spotify\\Spotify.exe".format(os.getlogin())
 
 
 class SpotifyBypass:
@@ -25,7 +25,7 @@ class SpotifyBypass:
         self.updateWindowHandle()
 
         if (self.callback):
-            threading.Thread(target=self._scraper, args=(self.callback, self._stopScraping)).start()
+            threading.Thread(target=self._updater, args=(self.callback, self._stopScraping)).start()
 
     def getSongDataDict(self):
         return {'artist': self.artist, 'title': self.title}
@@ -97,7 +97,7 @@ class SpotifyBypass:
         if (callback):
             callback()
 
-    def updateSongData(self, callback=None):
+    def songUpdater(self, callback=None):
         windowText = win32gui.GetWindowText(self.windowHandle)
 
         if windowText.startswith('Advertisement') or windowText == 'Spotify':
@@ -111,7 +111,6 @@ class SpotifyBypass:
             self.stopScraping()
             self.windowHandle = None
             self.openSpotify(path=PATH)
-            g
             self.details = []
             self.updateWindowHandle()
             self.playPause()
@@ -130,9 +129,9 @@ class SpotifyBypass:
                 else:
                     self.stopScraping()
 
-    def _scraper(self, callback, stopScrapingEvent):
-        while not stopScrapingEvent.is_set():
-            self.updateSongData(callback)
+    def _updater(self, callback, isScraping):
+        while not isScraping.is_set():
+            self.songUpdater(callback)
             time.sleep(2)
 
 
