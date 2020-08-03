@@ -6,10 +6,12 @@ import time
 import re
 import sys
 
-PATH = sys.argv[0]
+PATH = str(sys.argv[0])
+
 
 class SpotifyBypass:
-    def __init__(self, callback = None):
+
+    def __init__(self, callback=None):
         self.windowHandle = None
         self.callback = callback
         self.artist = None
@@ -22,9 +24,8 @@ class SpotifyBypass:
 
         self.updateWindowHandle()
 
-        if(self.callback):
+        if (self.callback):
             threading.Thread(target=self._scraper, args=(self.callback, self._stopScraping)).start()
-
 
     def getSongDataDict(self):
         return {'artist': self.artist, 'title': self.title}
@@ -37,7 +38,6 @@ class SpotifyBypass:
     def windowHandle(self, value):
         self._windowHandle = value
 
-
     @property
     def artist(self):
         return self._artist
@@ -45,7 +45,6 @@ class SpotifyBypass:
     @artist.setter
     def artist(self, value):
         self._artist = str(value)
-
 
     @property
     def title(self):
@@ -74,18 +73,17 @@ class SpotifyBypass:
         self.PROCESS = subprocess.Popen(path)
         time.sleep(4)
         self.playPause()
-        
+
     def closeSpotify(self):
         self.PROCESS.terminate()
         time.sleep(3)
 
-
-    def updateWindowHandle(self, callback = None):
+    def updateWindowHandle(self, callback=None):
         def getSpotifyWindowHandle(hwnd, details):
             name = win32gui.GetWindowText(hwnd)
             className = win32gui.GetClassName(hwnd)
 
-            if  className == 'Chrome_WidgetWin_0' and len(name) > 0:
+            if className == 'Chrome_WidgetWin_0' and len(name) > 0:
                 details.append(name)
                 self.windowHandle = hwnd
 
@@ -96,24 +94,24 @@ class SpotifyBypass:
             self.details = []
             win32gui.EnumWindows(getSpotifyWindowHandle, self.details)
 
-
-        if(callback):
+        if (callback):
             callback()
 
-    def updateSongData(self, callback = None):
+    def updateSongData(self, callback=None):
         windowText = win32gui.GetWindowText(self.windowHandle)
 
-        if windowText.startswith('Advertisement') or windowText.startswith('Spotify'):
+        if windowText.startswith('Advertisement') or windowText == 'Spotify':
             self.details = []
             self.closeSpotify()
             self.openSpotify(path=PATH)
             self.nextSong()
             self.updateWindowHandle()
 
-        if(not windowText):
+        if (not windowText):
             self.stopScraping()
             self.windowHandle = None
             self.openSpotify(path=PATH)
+            g
             self.details = []
             self.updateWindowHandle()
             self.playPause()
@@ -131,7 +129,7 @@ class SpotifyBypass:
                     callback(self.getSongDataDict())
                 else:
                     self.stopScraping()
-    
+
     def _scraper(self, callback, stopScrapingEvent):
         while not stopScrapingEvent.is_set():
             self.updateSongData(callback)
@@ -162,4 +160,6 @@ class SpotifyBypass:
 
 def printSong(songDict):
     print(songDict["artist"].encode('utf-8'), '-', songDict["title"].encode('utf-8'), )
+
+
 byPass = SpotifyBypass(printSong)
