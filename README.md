@@ -4,7 +4,7 @@
   
     $ pip install spotifyadbypass
   
- # if git clone use 
+ # if git clone, use 
     $ pip install win32gui
 # Usage<br>
 
