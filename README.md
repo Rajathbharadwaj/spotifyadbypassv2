@@ -3,7 +3,9 @@
 <li>How to use SpotifyAdBypass</li><br>
   
     $ pip install spotifyadbypass
-    
+  
+ # if git clone, use 
+    $ pip install win32gui
 # Usage<br>
 
 <h5>Make sure to keep Spotify closed as the program will auto open Spotify application.</h5>
