@@ -27,7 +27,7 @@ class SpotifyBypass:
         if (self.callback):
             threading.Thread(target=self._updater, args=(self.callback, self._stopScraping)).start()
 
-    def getSongDataDict(self):
+    def getArtistAndTitle(self):
         return {'artist': self.artist, 'title': self.title}
 
     @property
@@ -110,7 +110,6 @@ class SpotifyBypass:
         if (not windowText):
             self.stopScraping()
             self.windowHandle = None
-            self.openSpotify(path=PATH)
             self.details = []
             self.updateWindowHandle()
             self.playPause()
@@ -125,7 +124,7 @@ class SpotifyBypass:
                 self.title = title
 
                 if callback:
-                    callback(self.getSongDataDict())
+                    callback(self.getArtistAndTitle())
                 else:
                     self.stopScraping()
 
@@ -133,29 +132,6 @@ class SpotifyBypass:
         while not isScraping.is_set():
             self.songUpdater(callback)
             time.sleep(2)
-
-
-# def windows():
-#
-#     import win32gui
-#
-#     arrName = []
-#
-#     def getNameAndArtist(handle, arrName):
-#
-#         name = win32gui.GetWindowText(handle)
-#         className = win32gui.GetClassName(handle)
-#
-#         if className == 'Chrome_WidgetWin_0' and len(name) > 0:
-#             arrName.append(name)
-#         elif len(arrName) is 0:
-#             arrName = None
-#
-#
-#     win32gui.EnumWindows(getNameAndArtist, arrName)
-#     artist, track = arrName[0].split(" - ", 1)
-#
-#     return artist, track, arrName
 
 def printSong(songDict):
     print(songDict["artist"].encode('utf-8'), '-', songDict["title"].encode('utf-8'), )
