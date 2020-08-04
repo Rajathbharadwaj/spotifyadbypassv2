@@ -133,8 +133,4 @@ class SpotifyBypass:
             self.songUpdater(callback)
             time.sleep(2)
 
-def printSong(songDict):
-    print(songDict["artist"].encode('utf-8'), '-', songDict["title"].encode('utf-8'), )
 
-
-byPass = SpotifyBypass(printSong)
