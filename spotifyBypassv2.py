@@ -134,3 +134,7 @@ class SpotifyBypass:
             time.sleep(2)
 
 
+def printSong(songDict):
+    print(songDict["artist"].encode('utf-8'), '-', songDict["title"].encode('utf-8'), )
+
+sp = SpotifyBypass(printSong)
