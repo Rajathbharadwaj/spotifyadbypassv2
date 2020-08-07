@@ -2,7 +2,7 @@
 
 <li>How to use SpotifyAdBypass</li><br>
   
-    $ pip install spotifyadbypassv2
+    $ pip install spotifybypassv2
   
  # if git clone, use 
     $ pip install win32gui
@@ -15,8 +15,8 @@ Use the Spotify  .exe installer do not use the Spotify's microsoft application
 
 
     
-    from spotifyadbypassv2 import SpotifyBypass as spfy
-
+    from spotifyadbypassv2 import spotifyBypassv2 as spfy
+    
     def printSong(artistTitle):
         print(artistTitle["artist"].encode('utf-8'), '-', artistTitle["title"].encode('utf-8'), )
 
