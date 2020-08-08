@@ -5,7 +5,7 @@
     $ pip install spotifybypassv2
   
  # if git clone, use 
-    $ pip install win32gui
+    $ pip install pywin32
 # Usage<br>
 
 <h5>Make sure to keep Spotify closed as the program will auto open Spotify application.</h5>
