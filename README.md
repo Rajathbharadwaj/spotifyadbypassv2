@@ -3,6 +3,7 @@
 <li>How to use SpotifyAdBypass</li><br>
   
     $ pip install spotifybypassv2
+      pip install pywin32
   
  # if git clone, use 
     $ pip install pywin32
