@@ -5,7 +5,6 @@ import subprocess
 import time
 import re
 import os
-
 PATH = "C:\\Users\\{}\\AppData\\Roaming\\Spotify\\Spotify.exe".format(os.getlogin())
 
 
